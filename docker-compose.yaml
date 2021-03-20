@@ -1,0 +1,10 @@
+version: "3"
+services:
+  database:
+    image: glassnode/code-challenge-2020-database:latest
+    environment:
+      POSTGRES_DB: eth
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5432:5432"
