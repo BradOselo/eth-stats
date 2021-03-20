@@ -19,7 +19,7 @@ type FeeRepo interface {
 
 //FeeDB
 type FeeDB struct {
-	TotalFee uint64    `db:"total_fees"`
+	TotalFee float64   `db:"total_fees"`
 	Datetime time.Time `db:"datetime"`
 }
 

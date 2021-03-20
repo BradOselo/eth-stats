@@ -14,8 +14,8 @@ func GetDateRangeFromTimestamp(ts int64) (start, end string) {
 }
 
 //WeiToEther ...
-func WeiToEther(wei uint64) (eth float32) {
-	return float32(float64(wei) / math.Pow10(18))
+func WeiToEther(wei float64) (eth float32) {
+	return float32(wei / math.Pow10(18))
 }
 
 //TimestampToDateTime ...

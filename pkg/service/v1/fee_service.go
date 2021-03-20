@@ -4,15 +4,14 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/cardenasrjl/eth-stats/pkg/utils"
-
+	v1 "github.com/cardenasrjl/eth-stats/pkg/api/v1"
 	"github.com/cardenasrjl/eth-stats/pkg/storage/postgresql"
+	_ "github.com/cardenasrjl/eth-stats/pkg/storage/postgresql"
+
+	"github.com/cardenasrjl/eth-stats/pkg/utils"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	v1 "github.com/cardenasrjl/eth-stats/pkg/api/v1"
-	_ "github.com/cardenasrjl/eth-stats/pkg/storage/postgresql"
 )
 
 // Resolution in seconds
@@ -37,10 +36,6 @@ func validateRequest(m *v1.GetRequest) error {
 
 	if m.Resolution <= 0 {
 		m.Resolution = DefaultResolution
-	}
-
-	if int64(m.Resolution) > (m.End - m.Start) {
-		return status.Error(codes.Unknown, "The resolution is to big, provide a wider timestamp range")
 	}
 
 	//TODO: other validations here to ensure that will not compromise the request

@@ -1,8 +1,39 @@
-## Solution for eth-stats
+## To execute the solution:  
 
-I propose to have an api endpoint `/v1/eth-stats/fees`. with 3 parameters: `Start`,
- `End` and `Resolution`. The `Start` and `End` are unix timestamps and will be the boundaries
- in time to query the database (limits have to be set to avoid issues). The resolution will tell us the amount of seconds to be used 
+```
+$Make up or 
+```
+or
+
+```
+$docker-compose up
+```
+
+#### URL for test: 
+
+```
+http://0.0.0.0:8080/v1/eth-stats/fees?start=1599476400&end=1599479999&Resolution=600
+```
+
+#### Test Result 
+
+```json
+{
+    "fees": [
+        {
+            "t": "1599476400",
+            "v": 28.476894
+        }
+    ],
+    "total": 28.476894
+}
+```
+
+## Solution
+
+I propose to have an api endpoint `/v1/eth-stats/fees` with 3 parameters: `Start`,
+ `End` and `Resolution`. The `Start` and `End` are unix timestamps and are be the boundaries
+ in time to query the database. The resolution will tell us the amount of seconds to be used 
  to group the transactions and get the total fees. 
  
  With this solution we can have hourly grouping (as requested in the task), and for that we would need a resolution 
@@ -24,3 +55,4 @@ The /cmd/server/server.go is the entry point from were the two services
 2. Would consider adding an index to the block_time column in transactions table.. 
 2. Depending on the circumstances I would cache the results, since this is information that doesn't change once it is stored. Actually would be interesting to try a non transactional database to have this data. 
 3. There is no authentication so it should be implemented. 
+4. Proper configuration management. 
