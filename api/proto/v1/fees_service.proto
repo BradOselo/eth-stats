@@ -1,0 +1,33 @@
+syntax = "proto3";
+package v1;
+
+import "google/api/annotations.proto";
+
+message Fee {
+    int64 t = 1; //timestamp
+    float v = 2; //value
+}
+
+// GetRequest ...
+message GetRequest {
+    int64 start = 1 ;
+    int64 end = 2 ;
+    int32 Resolution = 3 ;
+}
+
+// GetResponse ...
+message GetResponse {
+    repeated Fee fees = 1;
+    float total = 2;
+}
+
+
+//services
+service FeeService {
+    //Get  GetFees
+    rpc GetFees (GetRequest) returns (GetResponse) {
+        option (google.api.http) = {
+            get: "/v1/eth-stats/fees"
+        };
+    }
+}
